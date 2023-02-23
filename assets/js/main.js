@@ -1625,6 +1625,7 @@ function resetMCA() {
 let serRecorder;
 document.getElementById('s1').onchange = event => selectSerialType(event.target);
 document.getElementById('s2').onchange = event => selectSerialType(event.target);
+document.getElementById('s3').onchange = event => selectSerialType(event.target);
 function selectSerialType(button) {
     SerialManager.orderType = button.value;
     saveJSON('serialDataMode', button.id);
@@ -1879,7 +1880,7 @@ function refreshRender(type, firstLoad = false) {
         const startDelay = performance.now();
         const newData = serRecorder.getData();
         const measTime = serRecorder.getTime() ?? 1000;
-        if (SerialManager.orderType === 'hist') {
+        if (SerialManager.orderType === 'hist' || SerialManager.orderType === 'labdos') {
             spectrumData.addHist(type, newData);
         }
         else if (SerialManager.orderType === 'chron') {

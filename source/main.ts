@@ -48,7 +48,7 @@ interface OpenPickerAcceptType {
   }
 }
 
-export type DataOrder = 'hist' | 'chron';
+export type DataOrder = 'hist' | 'chron'|'labdos';
 type CalType = 'a' | 'b' | 'c';
 type DataType = 'data' | 'background';
 type PortList = (WebSerial | WebUSBSerial | undefined)[];
@@ -2165,6 +2165,7 @@ let serRecorder: SerialManager | undefined;
 
 document.getElementById('s1')!.onchange = event => selectSerialType(<HTMLInputElement>event.target);
 document.getElementById('s2')!.onchange = event => selectSerialType(<HTMLInputElement>event.target);
+document.getElementById('s3')!.onchange = event => selectSerialType(<HTMLInputElement>event.target);
 
 function selectSerialType(button: HTMLInputElement): void {
   SerialManager.orderType = <DataOrder>button.value;
@@ -2502,7 +2503,7 @@ function refreshRender(type: DataType, firstLoad = false): void {
     const measTime = serRecorder.getTime() ?? 1000;
     //await serRecorder.startRecord(true); // Maybe?!
 
-    if (SerialManager.orderType === 'hist') {
+    if (SerialManager.orderType === 'hist' || SerialManager.orderType === 'labdos') {
       spectrumData.addHist(type, newData);
     } else if (SerialManager.orderType === 'chron') {
       spectrumData.addPulseData(type, newData, SerialManager.adcChannels);
